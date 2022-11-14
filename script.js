@@ -25,9 +25,9 @@ function startQuiz() {
     quizBody.appendChild(questionThing);
 
 
-    // var answerThing = document.createElement("button");
-    // answerThing.innerText = questionObj.answers.[0];
-    // quizBody.appendChild(answerThing);
+    var answerThing = document.createElement("button");
+    answerThing.innerHTML = questionObj.answers[0];
+    quizBody.appendChild(answerThing);
 
 }
 
