@@ -9,6 +9,9 @@ var questionObj =
 
 var quizBody = document.getElementById("quiz-body");
 var startBtn = document.getElementById("start-button");
+var welcome = document.getElementById("welcome");
+
+
 startBtn.addEventListener("click", startQuiz);
 
 
@@ -16,6 +19,7 @@ startBtn.addEventListener("click", startQuiz);
 
 function startQuiz() {
     
+    welcome.style.display = "none";
     startBtn.style.display = "none";
 
     var questionEl = questionObj.question;
@@ -24,10 +28,21 @@ function startQuiz() {
     questionThing.textContent = questionEl;
     quizBody.appendChild(questionThing);
 
+    var answer = questionObj.answers;
 
-    var answerThing = document.createElement("button");
-    answerThing.innerHTML = questionObj.answers[0];
-    quizBody.appendChild(answerThing);
+
+    for (var i = 0; i < answer.length; i++) {
+        var answerEl = answer[i];
+        var answerThing = document.createElement("button");
+        answerThing.innerText = answerEl;
+        quizBody.appendChild(answerThing);
+        
+    }
+
+
+    // var answerThing = document.createElement("button");
+    // answerThing.innerHTML = questionObj.answers[0];
+    // quizBody.appendChild(answerThing);
 
 }
 
