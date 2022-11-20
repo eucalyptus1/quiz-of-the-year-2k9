@@ -32,10 +32,12 @@ var quizBody = document.getElementById("quiz-body");
 var startBtn = document.getElementById("start-button");
 var welcome = document.getElementById("welcome");
 
+currentQuestion = 0;
+
 
 
 startBtn.addEventListener("click", startQuiz);
-answerThing.addEventListener("click", nextQuestion);
+
 
 
 //quiz questions cycle to next when answered
@@ -45,14 +47,13 @@ function startQuiz() {
     welcome.style.display = "none";
     startBtn.style.display = "none";
 
-    
-
     nextQuestion()
 };
+
 function nextQuestion() {
 
-    var questionEl = questionObj[0].question;
-    var answerEl = questionObj[0].answers;
+    var questionEl = questionObj[currentQuestion].question;
+    var answerEl = questionObj[currentQuestion].answers;
 
    var questionThing = document.createElement("p");
     questionThing.textContent = (questionEl);
@@ -65,14 +66,45 @@ function nextQuestion() {
         var answerThing = document.createElement("button");
         answerThing.innerText = answer;
         quizBody.appendChild(answerThing);
+        answerThing.addEventListener("click", checkAnswer);
         
     }
 
 }
 
+function checkAnswer(event) {
 
+    event.preventDefault();
+
+    var choice = event.target;
+    var correctAnswer = questionObj[currentQuestion].correct;
+
+    if (choice.textContent === correctAnswer) {
+        console.log("correct");
+
+    } else {
+        console.log("incorrect");
+    }
+
+    if (currentQuestion < questionObj.length) {
+        quizBody.innerHTML = "";
+        currentQuestion++;
+        nextQuestion();
+        
+    } else {
+       gameOver();
+    }
+    
+
+
+};
 
 //game over screen
+
+function gameOver() {
+    console.log("game over");
+
+}
 
 //high score initial entry form
 
