@@ -36,6 +36,7 @@ var highScoreBtn = document.getElementById("high-scores");
 
 currentQuestion = 0;
 secondsLeft = 60;
+highScoreArr = [];
 
 
 
@@ -127,6 +128,8 @@ function gameOver() {
     quizBody.appendChild(entryBtn);
     entryBtn.addEventListener("click", highScoreEntry);
 
+    //add play again button!
+
     console.log("game over");
 
 }
@@ -143,21 +146,32 @@ function highScoreEntry() {
     quizBody.appendChild(scoreMessage);
 
     var highScoreForm = document.createElement("input");
-    highScoreBtn.textContent = "Enter High Score";
+    highScoreForm.setAttribute("type", "text");
+    highScoreForm.textContent = "";
     quizBody.appendChild(highScoreForm);
 
     var submitBtn = document.createElement("button");
     submitBtn.setAttribute("type", "submit");
     submitBtn.textContent = "Submit";
     quizBody.appendChild(submitBtn);
-    submitBtn.addEventListener("click", scoreSubmit);
+    submitBtn.addEventListener("click", function() {
+
+    var initialInput = highScoreForm.value;
+
+    var scoreObj = {
+        initial: initialInput,
+        score: secondsLeft
+    }
+
+    if (submitBtn, "click") {
+        highScoreArr.push(scoreObj);
+        console.log(highScoreArr);
+    }
+
+    });
 
 }
 
-function scoreSubmit() {
-
-
-}
 
 function highScoreList() {
 
