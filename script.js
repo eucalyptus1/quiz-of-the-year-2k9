@@ -32,6 +32,7 @@ var quizBody = document.getElementById("quiz-body");
 var startBtn = document.getElementById("start-button");
 var welcome = document.getElementById("welcome");
 var timer = document.getElementById("timer");
+var highScoreBtn = document.getElementById("high-scores");
 
 currentQuestion = 0;
 secondsLeft = 60;
@@ -39,6 +40,7 @@ secondsLeft = 60;
 
 
 startBtn.addEventListener("click", startQuiz);
+highScoreBtn.addEventListener("click", highScoreList);
 
 
 
@@ -53,7 +55,7 @@ function startQuiz() {
         timer.textContent = secondsLeft;
         secondsLeft-=1;
 
-        if (secondsLeft === 0)
+        if (secondsLeft === 0 || currentQuestion === questionObj.length)
         {
            gameOver();
            clearInterval(setTimer);
@@ -109,8 +111,6 @@ function checkAnswer(event) {
        gameOver();
     }
     
-
-
 };
 
 //game over screen
@@ -122,9 +122,10 @@ function gameOver() {
     endMessage.textContent = "Well done.";
     quizBody.appendChild(endMessage);
 
-    var highScoreBtn = document.createElement("button");
-    highScoreBtn.textContent = "Enter High Score";
-    quizBody.appendChild(highScoreBtn);
+    var entryBtn = document.createElement("button");
+    entryBtn.textContent = "Enter High Score";
+    quizBody.appendChild(entryBtn);
+    entryBtn.addEventListener("click", highScoreEntry);
 
     console.log("game over");
 
@@ -133,3 +134,31 @@ function gameOver() {
 //high score initial entry form
 
 //high score page
+
+function highScoreEntry() {
+    quizBody.innerHTML = "";
+
+    var scoreMessage = document.createElement("p");
+    scoreMessage.textContent = "Enter your initials";
+    quizBody.appendChild(scoreMessage);
+
+    var highScoreForm = document.createElement("input");
+    highScoreBtn.textContent = "Enter High Score";
+    quizBody.appendChild(highScoreForm);
+
+    var submitBtn = document.createElement("button");
+    submitBtn.setAttribute("type", "submit");
+    submitBtn.textContent = "Submit";
+    quizBody.appendChild(submitBtn);
+    submitBtn.addEventListener("click", scoreSubmit);
+
+}
+
+function scoreSubmit() {
+
+
+}
+
+function highScoreList() {
+
+}
