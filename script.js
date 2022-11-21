@@ -31,8 +31,10 @@ let questionObj = [
 var quizBody = document.getElementById("quiz-body");
 var startBtn = document.getElementById("start-button");
 var welcome = document.getElementById("welcome");
+var timer = document.getElementById("timer");
 
 currentQuestion = 0;
+secondsLeft = 60;
 
 
 
@@ -46,6 +48,18 @@ function startQuiz() {
     
     welcome.style.display = "none";
     startBtn.style.display = "none";
+
+    var setTimer = setInterval(function() {
+        timer.textContent = secondsLeft;
+        secondsLeft-=1;
+
+        if (secondsLeft === 0)
+        {
+           gameOver();
+           clearInterval(setTimer);
+           
+        }
+      }, 1000);
 
     nextQuestion()
 };
@@ -102,6 +116,16 @@ function checkAnswer(event) {
 //game over screen
 
 function gameOver() {
+    quizBody.innerHTML = "";
+
+    var endMessage = document.createElement("p");
+    endMessage.textContent = "Well done.";
+    quizBody.appendChild(endMessage);
+
+    var highScoreBtn = document.createElement("button");
+    highScoreBtn.textContent = "Enter High Score";
+    quizBody.appendChild(highScoreBtn);
+
     console.log("game over");
 
 }
