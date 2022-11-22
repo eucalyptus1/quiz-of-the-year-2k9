@@ -56,11 +56,10 @@ function startQuiz() {
         timer.textContent = secondsLeft;
         secondsLeft-=1;
 
-        if (secondsLeft === 0 || currentQuestion === questionObj.length)
+        if (secondsLeft <= 0 || currentQuestion === questionObj.length)
         {
-           gameOver();
            clearInterval(setTimer);
-           
+           gameOver();
         }
       }, 1000);
 
@@ -96,11 +95,16 @@ function checkAnswer(event) {
     var choice = event.target;
     var correctAnswer = questionObj[currentQuestion].correct;
 
+    var rightWrong = document.createElement("p");
+    quizBody.appendChild(rightWrong);
+
+
     if (choice.textContent === correctAnswer) {
-        console.log("correct");
+        rightWrong.textContent = "Correcto-mundo!";
 
     } else {
-        console.log("incorrect");
+        secondsLeft -=10;
+        rightWrong.textContent = "Incorrect!";
     }
 
     if (currentQuestion < questionObj.length) {
@@ -129,8 +133,17 @@ function gameOver() {
     entryBtn.addEventListener("click", highScoreEntry);
 
     //add play again button!
+    var playAgain = document.createElement('button');
+    playAgain.textContent = "Play Again";
+    quizBody.appendChild(playAgain);
+    playAgain.addEventListener("click", startQuiz);
 
-    console.log("game over");
+    if (playAgain) {
+        clearInterval(setTimer);
+        quizBody.innerHTML = "";
+        
+        startQuiz();
+    }
 
 }
 
