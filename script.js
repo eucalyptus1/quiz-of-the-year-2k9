@@ -125,7 +125,7 @@ function gameOver() {
     quizBody.innerHTML = "";
 
     var endMessage = document.createElement("p");
-    endMessage.textContent = "Well done.";
+    endMessage.textContent = "Well done! Your score is " + secondsLeft + "!";
     quizBody.appendChild(endMessage);
 
     var entryBtn = document.createElement("button");
@@ -153,6 +153,10 @@ function gameOver() {
 //high score page
 
 function highScoreEntry() {
+
+
+
+    
     quizBody.innerHTML = "";
 
     var scoreMessage = document.createElement("p");
@@ -161,7 +165,7 @@ function highScoreEntry() {
 
     var highScoreForm = document.createElement("input");
     highScoreForm.setAttribute("type", "text");
-    highScoreForm.textContent = "";
+    // highScoreForm.textContent = "";
     quizBody.appendChild(highScoreForm);
 
     var submitBtn = document.createElement("button");
@@ -177,15 +181,14 @@ function highScoreEntry() {
         score: secondsLeft
     }
 
-    if (submitBtn, "click") {
         highScoreArr.push(scoreObj);
-        console.log(highScoreArr);
-        localStorage.setItem("AllScores", JSON.stringify(highScoreArr));
-        highScoreList();
-    }
+        console.log(scoreObj);
+        localStorage.setItem('scoreStorage', JSON.stringify(highScoreArr));
 
+        highScoreList();
     });
 
+    
 }
 
 
@@ -193,16 +196,27 @@ function highScoreList() {
 
     quizBody.innerHTML = "";
 
-    var scoreList = document.createElement("ul");
+    var scoreList = document.createElement("ol");
     quizBody.appendChild(scoreList);
 
-    var storedScores = JSON.parse(localStorage.getItem("allScores"));
+    var storedScores = JSON.parse(localStorage.getItem('scoreStorage'));
 
     if (storedScores != null && storedScores.length < 1) {
 
+        console.log("error");
+    } else {
+        // scoreList.innerHTML="";
+
     for (var i = 0; i < storedScores.length; i++) {
+        
+        var usrInitial =  (storedScores[i].initial);
+
+        var usrScore = (storedScores[i].score);
+
         var scoreLi = document.createElement("li");
-        scoreLi.textContent = storedScores[i].initial;
+
+        scoreLi.textContent = usrInitial + ": " + usrScore;
+
         scoreList.appendChild(scoreLi);
        
     }
