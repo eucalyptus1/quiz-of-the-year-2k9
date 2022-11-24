@@ -137,20 +137,28 @@ function gameOver() {
     var playAgain = document.createElement('button');
     playAgain.textContent = "Play Again";
     quizBody.appendChild(playAgain);
-    playAgain.addEventListener("click", startQuiz);
+    playAgain.addEventListener("click", function() {
 
-    if (playAgain) {
-        clearInterval(setTimer);
+        currentQuestion = 0;
+        secondsLeft = 60;
         quizBody.innerHTML = "";
         
         startQuiz();
-    }
+
+    });
+
+    // if (playAgain) {
+    //     clearInterval(setTimer);
+    //     quizBody.innerHTML = "";
+        
+    //     startQuiz();
+    // }
 
 }
 
 //high score initial entry form
 
-//high score page
+
 
 function highScoreEntry() {
 
@@ -191,6 +199,7 @@ function highScoreEntry() {
     
 }
 
+//high score page
 
 function highScoreList() {
 
