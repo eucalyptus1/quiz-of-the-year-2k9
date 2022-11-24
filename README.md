@@ -8,11 +8,6 @@ Clicking the start button will begin the quiz, and the timer. Get a question wro
 Your time remaining would be your high score.
 
 ## Features in development
-* High score page that utilizes local storage and an initial entry form that works
-
-* Play again button
-
-* Actual quiz questions
 
 * CSS!!
 

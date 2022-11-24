@@ -1,28 +1,46 @@
 // welcome screen, hidden when quiz starts
 let questionObj = [
-    {question: "What's 2 plus 2?",
-    answers: ["4", "the force between any two charges is equal to the absolute value of the multiple of the charges divided by four pi times the vacuum permittivity times the distance squared between the two charges", "22", "ice cold refreshments"],
-    correct: "4"
+
+    {
+        question: "Commonly included data types do NOT include:",
+        answers: ["strings", "booleans", "alerts", "numbers"],
+        correct: "alerts"
     },
 
-    {question:"What is a placeholder?",
-    answers: ["thing", "stuff", "i dunno", "go away"],
-    correct: "stuff"
+    {
+        question: "the condition in an if/else statement is enclosed with ______.",
+        answers: ["quotes", "curly brackets", "parenthesis", "square brackets"],
+        correct: "curly brackets"
     },
 
-    {question: "Why is the sky?",
-    answers: ["ruh-roh", "zoinks! like, it's the creepy caretaker!", "jinkies", "donphan"],
-    correct: "donphan"
+    {
+        question: "arrays in javascript can be used to store _____.",
+        answers: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+        correct: "all of the above"
     },
 
-    {question: "When i was a young warthog",
-    answers: ["when he was a young warthog", "very", "nice", "thanks"],
-    correct : "when he was a young warthog"
+    {
+        question: "string values must be enclosed within ______ when being assigned to variables.",
+        answers: ["commas", "curly brackets", "quotes", "parenthesis"],
+        correct: "quotes"
     },
 
-    {question: "so i says to mabel i says",
-    answers: ["purple drapes", "milpool", "junji ito", "enrico matassa"],
-    correct: "milpool"
+    {
+        question: "a very useful tool used during development and debugging for printing content to the debugger is:",
+        answers: ["javascript", "terminal/bash", "for loops", "console.log"],
+        correct: "console.log"
+    },
+
+    {
+        question: "What can you get at the concession stand for $10, $10 or $13?",
+        answers: ["Luke Wilson", "16:9 Anamorphic", "Hot, Hot Buttery Popcorn", "Battleship Potemkin"],
+        correct: "Hot, Hot Buttery Popcorn"
+    },
+
+    {
+        question: "What Friends alum starred in films with Bruce Willis?",
+        answers: ["Joey", "Phoebe", "Ugly Naked Guy", "MATTHEW PERRY"],
+        correct: "MATTHEW PERRY"
     }
 ];
 
@@ -41,29 +59,37 @@ highScoreArr = [];
 
 
 startBtn.addEventListener("click", startQuiz);
-highScoreBtn.addEventListener("click", highScoreList);
+
+highScoreBtn.addEventListener("click", function () {
+
+    welcome.style.display = "none";
+    startBtn.style.display = "none";
+    highScoreBtn.style.display = "none";
+
+    highScoreList();
+});
 
 
 
 //quiz questions cycle to next when answered
 
 function startTimer() {
-var setTimer = setInterval(function() {
-    timer.textContent = secondsLeft;
-    secondsLeft-=1;
+    var setTimer = setInterval(function () {
+        timer.textContent = secondsLeft;
+        secondsLeft -= 1;
 
-    if (secondsLeft <= 0 || currentQuestion === questionObj.length)
-    {
-       clearInterval(setTimer);
-       gameOver();
-    }
-  }, 1000);
+        if (secondsLeft <= 0 || currentQuestion === questionObj.length) {
+            clearInterval(setTimer);
+            gameOver();
+        }
+    }, 1000);
 }
 
 function startQuiz() {
-    
+
     welcome.style.display = "none";
     startBtn.style.display = "none";
+    highScoreBtn.style.display = "none";
 
     startTimer();
     nextQuestion();
@@ -74,7 +100,7 @@ function nextQuestion() {
     var questionEl = questionObj[currentQuestion].question;
     var answerEl = questionObj[currentQuestion].answers;
 
-   var questionThing = document.createElement("p");
+    var questionThing = document.createElement("p");
     questionThing.textContent = (questionEl);
     quizBody.appendChild(questionThing);
 
@@ -84,7 +110,7 @@ function nextQuestion() {
         answerThing.innerText = answer;
         quizBody.appendChild(answerThing);
         answerThing.addEventListener("click", checkAnswer);
-        
+
     }
 
 }
@@ -104,7 +130,7 @@ function checkAnswer(event) {
         rightWrong.textContent = "Correcto-mundo!";
 
     } else {
-        secondsLeft -=10;
+        secondsLeft -= 10;
         rightWrong.textContent = "Incorrect!";
     }
 
@@ -112,11 +138,11 @@ function checkAnswer(event) {
         quizBody.innerHTML = "";
         currentQuestion++;
         nextQuestion();
-        
+
     } else {
-       gameOver();
+        gameOver();
     }
-    
+
 };
 
 //game over screen
@@ -133,28 +159,27 @@ function gameOver() {
     quizBody.appendChild(entryBtn);
     entryBtn.addEventListener("click", highScoreEntry);
 
-    //add play again button!
-    var playAgain = document.createElement('button');
-    playAgain.textContent = "Play Again";
-    quizBody.appendChild(playAgain);
-    playAgain.addEventListener("click", function() {
+    playAgain();
+
+}
+
+function playAgain() {
+
+    playBtn = document.createElement('button');
+    playBtn.textContent = "Play Again";
+    quizBody.appendChild(playBtn);
+    playBtn.addEventListener("click", function () {
 
         currentQuestion = 0;
         secondsLeft = 60;
         quizBody.innerHTML = "";
-        
+
         startQuiz();
 
     });
 
-    // if (playAgain) {
-    //     clearInterval(setTimer);
-    //     quizBody.innerHTML = "";
-        
-    //     startQuiz();
-    // }
-
 }
+
 
 //high score initial entry form
 
@@ -164,7 +189,7 @@ function highScoreEntry() {
 
 
 
-    
+
     quizBody.innerHTML = "";
 
     var scoreMessage = document.createElement("p");
@@ -180,14 +205,14 @@ function highScoreEntry() {
     submitBtn.setAttribute("type", "submit");
     submitBtn.textContent = "Submit";
     quizBody.appendChild(submitBtn);
-    submitBtn.addEventListener("click", function() {
+    submitBtn.addEventListener("click", function () {
 
-    var initialInput = highScoreForm.value;
+        var initialInput = highScoreForm.value;
 
-    var scoreObj = {
-        initial: initialInput,
-        score: secondsLeft
-    }
+        var scoreObj = {
+            initial: initialInput,
+            score: secondsLeft
+        }
 
         highScoreArr.push(scoreObj);
         console.log(scoreObj);
@@ -196,7 +221,7 @@ function highScoreEntry() {
         highScoreList();
     });
 
-    
+
 }
 
 //high score page
@@ -208,6 +233,8 @@ function highScoreList() {
     var scoreList = document.createElement("ol");
     quizBody.appendChild(scoreList);
 
+    playAgain();
+
     var storedScores = JSON.parse(localStorage.getItem('scoreStorage'));
 
     if (storedScores != null && storedScores.length < 1) {
@@ -216,19 +243,19 @@ function highScoreList() {
     } else {
         // scoreList.innerHTML="";
 
-    for (var i = 0; i < storedScores.length; i++) {
-        
-        var usrInitial =  (storedScores[i].initial);
+        for (var i = 0; i < storedScores.length; i++) {
 
-        var usrScore = (storedScores[i].score);
+            var usrInitial = (storedScores[i].initial);
 
-        var scoreLi = document.createElement("li");
+            var usrScore = (storedScores[i].score);
 
-        scoreLi.textContent = usrInitial + ": " + usrScore;
+            var scoreLi = document.createElement("li");
 
-        scoreList.appendChild(scoreLi);
-       
-    }
+            scoreLi.textContent = usrInitial + ": " + usrScore;
+
+            scoreList.appendChild(scoreLi);
+
+        }
 
     }
 
