@@ -150,8 +150,12 @@ function checkAnswer(event) {
 function gameOver() {
     quizBody.innerHTML = "";
 
+    if (secondsLeft < 0) {
+        endMessage.textContent = "Your score was in the minus? How did you manage that?"
+    } else {
+
     var endMessage = document.createElement("p");
-    endMessage.textContent = "Well done! Your score is " + secondsLeft + "!";
+    endMessage.textContent = "Well done! Your score is " + secondsLeft + "! You're ready for computer school.";
     quizBody.appendChild(endMessage);
 
     var entryBtn = document.createElement("button");
@@ -160,6 +164,7 @@ function gameOver() {
     entryBtn.addEventListener("click", highScoreEntry);
 
     playAgain();
+    }
 
 }
 
@@ -260,3 +265,10 @@ function highScoreList() {
     }
 
 };
+
+//TO DO:
+// fix high score overwriting in local storage
+
+// alerts for right/wrong answers
+
+//CSS!!!!

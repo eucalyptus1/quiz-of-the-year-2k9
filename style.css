@@ -1,0 +1,17 @@
+body {
+    background: pink;
+    font-family: arial;
+    text-align: center;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#quiz-body {
+    width: 50%;
+    max-width: 300px;
+}
