@@ -25,7 +25,7 @@ let questionObj = [
 
   {
     question:
-      "string values must be enclosed within ______ when being assigned to variables.",
+      "string values must be enclosed within ______ when being assigned to letiables.",
     answers: ["commas", "curly brackets", "quotes", "parenthesis"],
     correct: "quotes",
   },
@@ -55,11 +55,12 @@ let questionObj = [
   },
 ];
 
-var quizBody = document.getElementById("quiz-body");
-var startBtn = document.getElementById("start-button");
-var welcome = document.getElementById("welcome");
-var timer = document.getElementById("timer");
-var highScoreBtn = document.getElementById("high-scores");
+let quizBody = document.getElementById("quiz-body");
+let startBtn = document.getElementById("start-button");
+let welcome = document.getElementById("welcome");
+let timer = document.getElementById("timer");
+let highScoreBtn = document.getElementById("high-scores");
+let rightWrong = document.getElementById("right-wrong");
 
 currentQuestion = 0;
 secondsLeft = 60;
@@ -78,7 +79,7 @@ highScoreBtn.addEventListener("click", function () {
 //quiz questions cycle to next when answered
 
 function startTimer() {
-  var setTimer = setInterval(function () {
+  let setTimer = setInterval(function () {
     timer.textContent = secondsLeft;
     secondsLeft -= 1;
 
@@ -99,17 +100,19 @@ function startQuiz() {
 }
 
 function nextQuestion() {
-  var questionEl = questionObj[currentQuestion].question;
-  var answerEl = questionObj[currentQuestion].answers;
+  let questionEl = questionObj[currentQuestion].question;
+  let answerEl = questionObj[currentQuestion].answers;
 
-  var questionThing = document.createElement("p");
+  let questionThing = document.createElement("p");
   questionThing.textContent = questionEl;
+  questionThing.className = "quest";
   quizBody.appendChild(questionThing);
 
-  for (var i = 0; i < answerEl.length; i++) {
-    var answer = answerEl[i];
-    var answerList = document.createElement("ul");
-    var answerThing = document.createElement("li");
+  for (let i = 0; i < answerEl.length; i++) {
+    let answer = answerEl[i];
+    let answerList = document.createElement("ul");
+    let answerThing = document.createElement("li");
+    answerThing.className = "ans";
     answerThing.innerText = answer;
     quizBody.appendChild(answerList);
     answerList.appendChild(answerThing);
@@ -120,11 +123,8 @@ function nextQuestion() {
 function checkAnswer(event) {
   event.preventDefault();
 
-  var choice = event.target;
-  var correctAnswer = questionObj[currentQuestion].correct;
-
-  var rightWrong = document.createElement("p");
-  quizBody.appendChild(rightWrong);
+  let choice = event.target;
+  let correctAnswer = questionObj[currentQuestion].correct;
 
   if (choice.textContent === correctAnswer) {
     rightWrong.textContent = "Correcto-mundo!";
@@ -146,7 +146,8 @@ function checkAnswer(event) {
 
 function gameOver() {
   quizBody.innerHTML = "";
-  var endMessage = document.createElement("p");
+  rightWrong.textContent = "";
+  let endMessage = document.createElement("p");
 
   if (secondsLeft < 0) {
     endMessage.textContent =
@@ -159,7 +160,7 @@ function gameOver() {
       "! You're ready for computer school.";
     quizBody.appendChild(endMessage);
   }
-  var entryBtn = document.createElement("button");
+  let entryBtn = document.createElement("button");
   entryBtn.textContent = "Enter High Score";
   quizBody.appendChild(entryBtn);
   entryBtn.addEventListener("click", highScoreEntry);
@@ -185,23 +186,23 @@ function playAgain() {
 function highScoreEntry() {
   quizBody.innerHTML = "";
 
-  var scoreMessage = document.createElement("p");
+  let scoreMessage = document.createElement("p");
   scoreMessage.textContent = "Enter your initials";
   quizBody.appendChild(scoreMessage);
 
-  var highScoreForm = document.createElement("input");
+  let highScoreForm = document.createElement("input");
   highScoreForm.setAttribute("type", "text");
   // highScoreForm.textContent = "";
   quizBody.appendChild(highScoreForm);
 
-  var submitBtn = document.createElement("button");
+  let submitBtn = document.createElement("button");
   submitBtn.setAttribute("type", "submit");
   submitBtn.textContent = "Submit";
   quizBody.appendChild(submitBtn);
   submitBtn.addEventListener("click", function () {
-    var initialInput = highScoreForm.value;
+    let initialInput = highScoreForm.value;
 
-    var scoreObj = {
+    let scoreObj = {
       initial: initialInput,
       score: secondsLeft,
     };
@@ -219,24 +220,24 @@ function highScoreEntry() {
 function highScoreList() {
   quizBody.innerHTML = "";
 
-  var scoreList = document.createElement("ol");
+  let scoreList = document.createElement("ol");
   quizBody.appendChild(scoreList);
 
   playAgain();
 
-  var storedScores = JSON.parse(localStorage.getItem("scoreStorage"));
+  let storedScores = JSON.parse(localStorage.getItem("scoreStorage"));
 
   if (storedScores != null && storedScores.length < 1) {
     console.log("error");
   } else {
     // scoreList.innerHTML="";
 
-    for (var i = 0; i < storedScores.length; i++) {
-      var usrInitial = storedScores[i].initial;
+    for (let i = 0; i < storedScores.length; i++) {
+      let usrInitial = storedScores[i].initial;
 
-      var usrScore = storedScores[i].score;
+      let usrScore = storedScores[i].score;
 
-      var scoreLi = document.createElement("li");
+      let scoreLi = document.createElement("li");
 
       scoreLi.textContent = usrInitial + ": " + usrScore;
 

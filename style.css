@@ -15,3 +15,22 @@ main {
     width: 50%;
     max-width: 300px;
 }
+
+.quest {
+    font-size: 20px;
+    font-weight: bold;
+    background: white;
+    padding: 10px;
+}
+
+.ans {
+    list-style-type: none;
+    margin-bottom: 4px;
+    padding: 10px;
+    background: #E6E6E6;
+}
+
+.ans:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
